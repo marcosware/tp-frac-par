@@ -5,6 +5,42 @@ public class Main {
 	public static final String simboloIntegral = "∫";
 	public static final Scanner sc = new Scanner(System.in);
 
+	
+	public static String formatDen(int x) {
+        if (x >= 0)
+            return "(x - " + x + ")"; // Se x1=3 -> (x - 3)
+        else
+            return "(x + " + Math.abs(x) + ")"; // Se x1=-3 -> (x + 3)
+    }
+	
+	public static String formatDenFrac(int x) {
+      	 if (x >= 0)
+            return "x - " + x; // Se x1=3 -> x - 3
+         else
+            return "x + " + Math.abs(x); // Se x1=-3 -> x + 3
+    }
+
+ 	public static String formatLn(int x) {
+        if (x >= 0)
+            return "ln|x - " + x + "|"; // Se x1=3 -> ln|x - 3|
+        else
+            return "ln|x + " + Math.abs(x) + "|"; // Se x1=-3 -> ln|x + 3|
+    }
+
+    public static String formatTerm(int n) {
+        if (n >= 0)
+            return String.valueOf(n); // Mantém o número, ex: 7
+        else
+            return String.valueOf(n); // Mantém o sinal de menos, ex: -5
+    }
+
+	public static String formatNum(int n) {
+        if (n >= 0)
+            return "+ " + n; // Se B=5 -> + 5
+        else
+            return "- " + Math.abs(n); // Se B=-5 -> - 5
+    }
+
 	public static void main(String[] args) {
 		int type = menu();
 
@@ -96,13 +132,22 @@ public class Main {
 	}
 
 	public static void resultadoLinear(int A, int B, int C, int D, int x1, int x2) {
-		if (D > 0) {
-			System.out.println("\nRESPOSTA:\n\t" + simboloIntegral + "  " + A + "x+" + B + "  dx   " + C + "       " + D + "\n\t ----------  = ------ + ------  = " + C + "ln|x-" + x1 + "| + " + D + "ln|x-" + x2 + "| + c\n\t (x-" + x1 + ")(x-" + x2 + ")  x - " + x1 + "   x - " + x2);
-		}
-		else {
-			System.out.println("\nRESPOSTA:\n\t" + simboloIntegral + "   " + A + "x+" + B + "   dx    " + C + "      " + D + "\n\t ----------  = ----- + ----- = " + C + "ln|x-" + x1 + "| " + D + "ln|x-" + x2 + "| + c\n\t (x-" + x1 + ")(x-" + x2 + ")    x - " + x1 + "   x - " + x2);
-		}
-	}
+		String sA = A + "x " + formatNum(B); 
+        String sC = formatTerm(C);           
+        String sD = formatNum(D);            
+        String denCompleto = formatDen(x1) + formatDen(x2); 
+        String den1 = formatDenFrac(x1); 
+        String den2 = formatDenFrac(x2); 
+        String ln1 = formatLn(x1);       
+        String ln2 = formatLn(x2);       
+
+        System.out.print("\nRESPOSTA:\n\t" + simboloIntegral + " " + sA + " dx" +
+                         "         " + sC + "      " + sD + " \n"); 
+
+        System.out.print("\t -------------  = ----- + -----  =  " + C + ln1 + " " + sD + ln2 + " + c\n");
+
+        System.out.println("\t " + denCompleto + "   " + den1 + "   " + den2);
+    }
 
 	public static int calculaTermoC(int A, int B, int x1, int x2) {
 		return (B + (A*x1)/(-x2+x1));
@@ -150,16 +195,21 @@ public class Main {
 		c = sc.nextInt();
 
 		int d = delta(a, b, c); // Delta
-								//
+								
 		boolean valid = true;
 		if(d < 0 || (Math.sqrt(d) % 1) != 0) valid = false;
 		
 		if(valid) {
-			double x1temp = bhaskara(a, b, d, '+');
-			double x2temp = bhaskara(a, b, d, '-');
-			x1 = (int) x1temp;
-			x2 = (int) x2temp;
-			System.out.println("\nNOVA FÓRMULA APÓS FAZER BHASKARA:\n\t" + simboloIntegral + "    " + A + "x+" + B + "   dx\n\t ----------\n\t (x" + x1 + ")(x" + x2 + ")");
+			x1 = bhaskara(a, b, d, '+');
+			x2 = bhaskara(a, b, d, '-');
+			System.out.printf("\nNOVA FÓRMULA APÓS FAZER BHASKARA:\n\t%s   %dx+%d    dx\n\t ----------\n\t (x%.0f)(x%.0f)\n", simboloIntegral, A, B, x1, x2);
+
+			int x1term = (int) Math.round(x1);
+			int x2term = (int) Math.round(x2);
+			C = calculaTermoC(A, B, x1term, x2term);
+			D = calculaTermoD(A, B, x1term, x2term);
+
+			resultadoLinear(A, B, C, D, x1term, x2term);
 		}
 		else {
 			System.out.println("\n-------Delta inválido!-------\n");
