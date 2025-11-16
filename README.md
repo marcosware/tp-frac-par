@@ -1,4 +1,4 @@
-# TP-Cálculo II- Frações Parciais-
+# TP-Cálculo II - Frações Parciais
 
 Integrantes:
 * Diego Henrique Xavier dos Santos
