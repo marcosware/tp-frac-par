@@ -1,11 +1,11 @@
 # TP-Cálculo II - Frações Parciais
 
 Integrantes:
-* Diego Henrique Xavier dos Santos
-* Eduardo Henrique Aniceto Teixeira
-* Lucas Vinícius Pedroso Pereira
-* Marcos Vinícius Nunes Reis
-* Vitor Daniel Silva Melo
+* [Diego Henrique Xavier dos Santos](https://github.com/Diego-Hxs)
+* [Eduardo Henrique Aniceto Teixeira](https://github.com/eduhatcs)
+* [Lucas Vinícius Pedroso Pereira](https://github.com/LucasVinip05)
+* [Marcos Vinícius Nunes Reis](https://github.com/marcosware)
+* [Vitor Daniel Silva Melo](https://github.com/vmelooo)
 ---
 ## Como compilar o código
 
