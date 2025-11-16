@@ -1,6 +1,7 @@
 # TP-Cálculo II- Frações Parciais-
 
 Integrantes:
+* Diego Henrique Xavier dos Santos
 * Eduardo Henrique Aniceto Teixeira
 * Lucas Vinícius Pedroso Pereira
 * Marcos Vinícius Nunes Reis
